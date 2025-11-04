@@ -1,193 +1,126 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>CRRTEX TEAM — لوحة API غيمر</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRRTEX TEAM – لوحة API</title>
   <style>
-    /* Reset */
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%}
-    body{
-      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', 'Helvetica Neue', Arial;
-      background: radial-gradient(ellipse at 10% 10%, #0b0f1a 0%, #05060a 30%, #040205 100%), linear-gradient(180deg, rgba(24,6,54,0.15), transparent 30%);
-      color:#e6eef8;
-      -webkit-font-smoothing:antialiased;
-      padding:32px;
-    }.container{max-width:1100px;margin:0 auto}
+    * {
+      box-sizing: border-box;
+      font-family: "Orbitron", sans-serif;
+    }
 
-/* Header */
-header{display:flex;gap:20px;align-items:center;margin-bottom:28px}
-.logo{
-  display:flex;align-items:center;gap:14px;padding:12px 18px;border-radius:14px;background:linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));box-shadow:0 6px 30px rgba(88,0,255,0.08), inset 0 1px 0 rgba(255,255,255,0.02);
-}
-.logo-mark{
-  width:56px;height:56px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;
-  background:linear-gradient(135deg,#7c4dff,#00d4ff);
-  color:#020617;letter-spacing:1px;box-shadow:0 6px 30px rgba(124,77,255,0.28);
-}
-.logo h1{font-size:20px;line-height:1;color: #fff}
-.logo p{font-size:12px;color:rgba(230,238,248,0.7);margin-top:4px}
+    body {
+      background: radial-gradient(circle at center, #080808, #000);
+      color: #00ffea;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
 
-/* Card */
-.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:16px;padding:20px;box-shadow:0 10px 40px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
+    h1 {
+      font-size: 2.8em;
+      color: #00eaff;
+      text-shadow: 0 0 20px #00eaff, 0 0 40px #00ffff;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
 
-.grid{display:grid;grid-template-columns:1fr 420px;gap:20px}
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #00eaff; }
+      to { text-shadow: 0 0 25px #00ffff; }
+    }
 
-form .row{display:flex;gap:12px;margin-bottom:12px}
-label{display:block;font-size:13px;color:rgba(230,238,248,0.8);margin-bottom:6px}
-input,textarea,select{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.05);background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));color:#e6eef8;font-size:14px}
-textarea{min-height:120px;resize:vertical}
+    .btn {
+      background: linear-gradient(90deg, #00ffea, #0077ff);
+      color: #000;
+      border: none;
+      padding: 15px 25px;
+      font-size: 1.1em;
+      border-radius: 8px;
+      margin: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: bold;
+    }
 
-.actions{display:flex;gap:12px;margin-top:8px}
-.btn{padding:10px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:600}
-.btn-primary{background:linear-gradient(90deg,#7c4dff,#00d4ff);color:#041026;box-shadow:0 8px 30px rgba(0,212,255,0.08)}
-.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#e6eef8}
+    .btn:hover {
+      background: linear-gradient(90deg, #0077ff, #00ffea);
+      box-shadow: 0 0 20px #00ffff;
+    }
 
-/* Result area */
-.result{margin-top:12px;padding:12px;border-radius:10px;background:rgba(2,6,23,0.45);border:1px solid rgba(255,255,255,0.02);min-height:140px;overflow:auto;font-family:monospace;font-size:13px}
+    #result {
+      margin-top: 25px;
+      width: 85%;
+      max-width: 500px;
+      background: rgba(0, 255, 255, 0.1);
+      border: 1px solid #00ffff;
+      border-radius: 10px;
+      padding: 15px;
+      color: #e0ffff;
+      font-family: monospace;
+      text-align: left;
+      direction: ltr;
+      white-space: pre-wrap;
+    }
 
-/* Right column */
-.panel{display:flex;flex-direction:column;gap:14px}
-.meta{padding:14px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));border:1px solid rgba(255,255,255,0.02)}
-
-footer{margin-top:18px;color:rgba(230,238,248,0.6);font-size:13px;text-align:center}
-
-/* Responsive */
-@media (max-width:920px){.grid{grid-template-columns:1fr}.logo p{display:none}}
-
+    footer {
+      margin-top: 40px;
+      color: #0077ff;
+      font-size: 0.9em;
+      opacity: 0.7;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="logo">
-        <div class="logo-mark">CRRTEX</div>
-        <div>
-          <h1>CRRTEX TEAM</h1>
-          <p>لوحة تحكم API — تصميم غيمر عصري</p>
-        </div>
-      </div>
-    </header><main class="card grid">
-  <section>
-    <h2 style="margin-bottom:12px">تجربة الـ APIs</h2>
+  <h1>⚡ CRRTEX TEAM ⚡</h1>
+  <p>لوحة اختبار واجهات API الخاصة بالفريق</p>
 
-    <form id="apiForm" autocomplete="off">
-      <div class="row">
-        <div style="flex:1">
-          <label for="team_code">team_code</label>
-          <input id="team_code" name="team_code" placeholder="مثال: TEAM123" />
-        </div>
-        <div style="width:160px">
-          <label for="dance_id">dance_id</label>
-          <input id="dance_id" name="dance_id" placeholder="مثال: 5" />
-        </div>
-      </div>
+  <button class="btn" onclick="runDanceAPI()">🕺 تشغيل Dance API</button>
+  <button class="btn" onclick="runInfoAPI()">ℹ️ تشغيل Info API</button>
 
-      <div class="row">
-        <div style="flex:1">
-          <label for="uids">uids (فاصلة مفصولة)</label>
-          <input id="uids" name="uids" placeholder="مثال: 111,222,333" />
-        </div>
-        <div style="width:160px">
-          <label for="delay">delay</label>
-          <input id="delay" name="delay" value="0" />
-        </div>
-      </div>
+  <div id="result">نتائج الاختبار ستظهر هنا...</div>
 
-      <div style="margin-top:6px">
-        <label for="uid">uid (لاستخدام API الثاني)</label>
-        <input id="uid" name="uid" placeholder="مثال: 123456" />
-      </div>
+  <footer>© 2025 CRRTEX TEAM | Designed by AI</footer>
 
-      <div class="actions">
-        <button type="button" class="btn btn-primary" id="callDance">استدعاء dance API</button>
-        <button type="button" class="btn btn-primary" id="callGet">استدعاء get API</button>
-        <button type="button" class="btn btn-ghost" id="clear">مسح النتائج</button>
-      </div>
+  <script>
+    async function runDanceAPI() {
+      const team_code = prompt("أدخل team_code:");
+      const dance_id = prompt("أدخل dance_id:");
+      const uids = prompt("أدخل uids (مفصول بفواصل):");
 
-      <div class="result" id="result">النتائج ستظهر هنا...</div>
-    </form>
-  </section>
-
-  <aside class="panel">
-    <div class="meta">
-      <h3>معلومات قصيرة</h3>
-      <p>هذان النهايتان مستخدمان في الصفحة:</p>
-      <ul style="margin-top:8px;line-height:1.6">
-        <li><code>https://ctx-team-1-production.up.railway.app/api/dance?code={team_code}&dance={dance_id}&uids={uids}&delay={delay}</code></li>
-        <li><code>https://ch9ayfa-info-v10-production.up.railway.app/get?uid={uid}</code></li>
-      </ul>
-      <p style="margin-top:8px;font-size:13px;color:rgba(230,238,248,0.7)">ملاحظة: إذا ظهر خطأ CORS عند الاختبار في المتصفح، ستحتاج إلى تشغيل الصفحة من خادم أو استخدام وكيل (proxy) لأن بعض APIs لا تسمح بالوصول مباشرة من صفحات محلية.</p>
-    </div>
-
-    <div class="meta">
-      <h3>نصائح النشر</h3>
-      <ol style="padding-left:18px;margin-top:8px;line-height:1.6">
-        <li>اختبر محلياً عبر تشغيل simple HTTP server (مثال: <code>npx serve</code> أو <code>python -m http.server</code>).</li>
-        <li>انشر على Vercel / Netlify / Railway أو GitHub Pages.</li>
-        <li>احمِ مفاتيح أو بيانات حساسة على الخادم (إذا احتجت).</li>
-      </ol>
-    </div>
-
-  </aside>
-</main>
-
-<footer>
-  منشأ بواسطة لوحة CRRTEX TEAM — إذا تريد تعديلات على الشكل، الألوان، أو إضافة auth قلّي.
-</footer>
-
-  </div>  <script>
-    // Helper: عرض نص في صندوق النتائج
-    const R = id => document.getElementById(id);
-    const resultBox = R('result');
-
-    function show(msg, append = false){
-      if(!append) resultBox.innerText = msg;
-      else resultBox.innerText += '\n' + msg;
-    }
-
-    async function callDance(){
-      const team_code = R('team_code').value.trim();
-      const dance_id = R('dance_id').value.trim();
-      const uids = R('uids').value.trim();
-      const delay = R('delay').value.trim() || '0';
-
-      if(!team_code || !dance_id || !uids){
-        show('يرجى تعبئة team_code، dance_id، و uids.');
-        return;
-      }
-
-      const url = `https://ctx-team-1-production.up.railway.app/api/dance?code=${encodeURIComponent(team_code)}&dance=${encodeURIComponent(dance_id)}&uids=${encodeURIComponent(uids)}&delay=${encodeURIComponent(delay)}`;
-
-      show('جاري طلب الـ API...');
-      try{
+      const url = `https://ctx-team-1-production.up.railway.app/api/dance?code=${team_code}&dance=${dance_id}&uids=${uids}&delay=0`;
+      showResult("⏳ جاري الاتصال بـ Dance API ...");
+      try {
         const res = await fetch(url);
-        const text = await res.text();
-        show(`HTTP ${res.status} ${res.statusText}\n\n` + text);
-      }catch(err){
-        show('حدث خطأ أثناء الطلب: ' + err.message);
+        const data = await res.text();
+        showResult("✅ النتيجة:\n\n" + data);
+      } catch (err) {
+        showResult("❌ حدث خطأ:\n" + err);
       }
     }
 
-    async function callGet(){
-      const uid = R('uid').value.trim();
-      if(!uid){ show('يرجى إدخال uid لاستخدام API الثاني.'); return; }
-      const url = `https://ch9ayfa-info-v10-production.up.railway.app/get?uid=${encodeURIComponent(uid)}`;
-      show('جاري طلب الـ API...');
-      try{
+    async function runInfoAPI() {
+      const uid = prompt("أدخل UID:");
+      const url = `https://ch9ayfa-info-v10-production.up.railway.app/get?uid=${uid}`;
+      showResult("⏳ جاري الاتصال بـ Info API ...");
+      try {
         const res = await fetch(url);
-        const text = await res.text();
-        show(`HTTP ${res.status} ${res.statusText}\n\n` + text);
-      }catch(err){
-        show('حدث خطأ أثناء الطلب: ' + err.message);
+        const data = await res.text();
+        showResult("✅ النتيجة:\n\n" + data);
+      } catch (err) {
+        showResult("❌ حدث خطأ:\n" + err);
       }
     }
 
-    R('callDance').addEventListener('click', callDance);
-    R('callGet').addEventListener('click', callGet);
-    R('clear').addEventListener('click', ()=> show(''));
-
-  </script></body>
+    function showResult(text) {
+      document.getElementById("result").textContent = text;
+    }
+  </script>
+</body>
 </html>
