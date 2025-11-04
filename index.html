@@ -83,32 +83,34 @@
   <main id="content">
     <h1>Welcome to COTREX TEAM Panel</h1>
     <p>Your secured dashboard is ready.</p>
-    <!-- هنا تضع الكود الخاص بـ API لاحقاً -->
+    <!-- هنا لاحقاً تضع كود الـ API -->
   </main>
 
-<script>
-const correctHash = "f4e9b901b5a8b3da63ec2e064d350224ad8c72bbcd2053c9f9d6b7836c401ad8"; // SHA256('letmein')
+  <script>
+    const correctHash = "f4e9b901b5a8b3da63ec2e064d350224ad8c72bbcd2053c9f9d6b7836c401ad8"; // SHA256('letmein')
 
-async function sha256(message) {
-  const msgBuffer = new TextEncoder().encode(message);
-  const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
-}
+    async function sha256(message) {
+      const msgBuffer = new TextEncoder().encode(message);
+      const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+    }
 
-document.getElementById("unlockBtn").addEventListener("click", async () => {
-  const input = document.getElementById("password").value.trim();
-  const hash = await sha256(input);
-  if (hash === correctHash) {
-    const clickSound = new Audio("assets/click.wav");
-    clickSound.play().catch(() => {});
-    document.getElementById("lockScreen").style.opacity = "0";
-    setTimeout(() => document.getElementById("lockScreen").style.display = "none", 500);
-    document.getElementById("content").classList.add("visible");
-  } else {
-    document.getElementById("error").style.display = "block";
-  }
-});
-</script>
+    document.getElementById("unlockBtn").addEventListener("click", async () => {
+      const input = document.getElementById("password").value.trim();
+      const hash = await sha256(input);
+      if (hash === correctHash) {
+        const clickSound = new Audio("assets/click.wav");
+        clickSound.play().catch(() => {});
+        document.getElementById("lockScreen").style.opacity = "0";
+        setTimeout(() => {
+          document.getElementById("lockScreen").style.display = "none";
+        }, 500);
+        document.getElementById("content").classList.add("visible");
+      } else {
+        document.getElementById("error").style.display = "block";
+      }
+    });
+  </script>
 </body>
 </html>
