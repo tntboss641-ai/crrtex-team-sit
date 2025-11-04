@@ -1,116 +1,188 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>COTREX TEAM</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>COTREX TEAM — Dashboard</title>
 <style>
-  body {
-    margin: 0;
-    font-family: "Poppins", sans-serif;
-    background-color: #0a0a0a;
-    color: #fff;
-    overflow: hidden;
+  :root{
+    --bg:#07090b; --card:#0f1418; --muted:#9aa5b1; --accent:#38bdf8;
   }
-  header {
-    text-align: center;
-    padding: 20px;
-    font-size: 2em;
-    font-weight: bold;
-    letter-spacing: 2px;
-    background: linear-gradient(90deg, #00c6ff, #0072ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: fadeInDown 1s ease;
+  *{box-sizing:border-box}
+  body{
+    margin:0; font-family:Tahoma,Arial,Helvetica,sans-serif;
+    background:linear-gradient(180deg,var(--bg),#041018);
+    color:#e6eef6; min-height:100vh; -webkit-font-smoothing:antialiased;
   }
-  @keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+  header{
+    display:flex;align-items:center;gap:12px;padding:14px 18px;
+    backdrop-filter: blur(6px); border-bottom:1px solid rgba(255,255,255,0.03);
+    position:sticky;top:0;background:transparent; z-index:30;
   }
-  #lockScreen {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.9);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    transition: opacity 0.5s ease;
+  .logo{display:flex;align-items:center;gap:12px;font-weight:800;color:var(--accent)}
+  .logo .mark{width:40px;height:40px;border-radius:8px;display:inline-flex;
+    align-items:center;justify-content:center;font-weight:800;
+    background:linear-gradient(135deg,#0ea5e9,#8b5cf6); color:#04111a}
+  .container{max-width:980px;margin:28px auto;padding:18px}
+  .card{background:var(--card);border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.03);
+    box-shadow:0 10px 30px rgba(2,6,23,0.6);margin-bottom:16px}
+  h1,h2{margin:0 0 12px 0}
+  label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+  input,select,textarea{
+    width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);
+    background:transparent;color:inherit;margin-bottom:10px;outline:none
   }
-  #lockScreen input {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    margin-bottom: 10px;
-    outline: none;
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .actions{display:flex;gap:10px;flex-wrap:wrap}
+  button{
+    background:linear-gradient(90deg,rgba(56,189,248,0.12),rgba(139,92,246,0.08));
+    border:1px solid rgba(255,255,255,0.04); color:var(--accent); padding:10px 14px;border-radius:8px;
+    cursor:pointer;font-weight:700; transition:all 220ms cubic-bezier(.2,.9,.2,1)
   }
-  #lockScreen button {
-    background-color: #0072ff;
-    border: none;
-    padding: 10px 20px;
-    color: white;
-    font-size: 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  #lockScreen button:hover {
-    background-color: #00c6ff;
-  }
-  main {
-    opacity: 0;
-    transition: opacity 1s ease;
-    text-align: center;
-    margin-top: 100px;
-  }
-  main.visible {
-    opacity: 1;
-  }
+  button:hover{transform:translateY(-3px)}
+  pre{white-space:pre-wrap;background:rgba(255,255,255,0.02);padding:12px;border-radius:8px;color:#cfeffb}
+  .small{font-size:13px;color:var(--muted)}
+  .fade-page{opacity:0;transform:translateY(6px);transition:opacity 400ms ease, transform 400ms ease}
+  .fade-page.show{opacity:1;transform:none}
+  @media (max-width:740px){.row{grid-template-columns:1fr} header{padding:10px}}
 </style>
 </head>
 <body>
-  <header>COTREX TEAM</header>
+  <header>
+    <div class="logo"><div class="mark">CT</div>COTREX TEAM</div>
+  </header>
 
-  <div id="lockScreen">
-    <h2>🔒 Enter Access Key</h2>
-    <input type="password" id="password" placeholder="Enter password..." />
-    <button id="unlockBtn">Unlock</button>
-    <p id="error" style="color:red;display:none;">Wrong password!</p>
-  </div>
+  <main class="container fade-page show" id="mainContent">
+    <div class="card">
+      <h1>لوحة تحكم الـ APIs</h1>
+      <p class="small">استخدم النماذج أدناه لاستدعاء الـ APIs الثلاثة المصرح بها. إن ظهر خطأ CORS فسيتم فتح الرابط في تاب جديد.</p>
+    </div>
 
-  <main id="content">
-    <h1>Welcome to COTREX TEAM Panel</h1>
-    <p>Your secured dashboard is ready.</p>
-    <!-- هنا لاحقاً تضع كود الـ API -->
+    <!-- Dance API -->
+    <section class="card">
+      <h2>Dance API</h2>
+      <div class="small">استدعي: <code>https://ctx-team-1-production.up.railway.app/api/dance?code={team_code}&dance={dance_id}&uids={uids}&delay=0</code></div>
+      <div style="margin-top:12px">
+        <div class="row">
+          <div>
+            <label>team_code</label>
+            <input id="team_code" placeholder="مثال: ABC123"/>
+          </div>
+          <div>
+            <label>dance_id</label>
+            <input id="dance_id" placeholder="مثال: 5"/>
+          </div>
+        </div>
+        <label>uids (قائمة مفصولة بفواصل)</label>
+        <input id="uids" placeholder="مثال: 1001,1002,1003"/>
+        <div class="actions">
+          <button onclick="callDance()">استدعاء Dance API</button>
+          <button onclick="openDance()">فتح في تاب جديد</button>
+        </div>
+        <div style="margin-top:12px">
+          <pre id="danceResult">— النتائج ستظهر هنا —</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Info API -->
+    <section class="card">
+      <h2>Info API</h2>
+      <div class="small">استدعي: <code>https://ch9ayfa-info-v10-production.up.railway.app/get?uid={uid}</code></div>
+      <label>uid</label>
+      <input id="info_uid" placeholder="مثال: 1001"/>
+      <div class="actions">
+        <button onclick="callInfo()">استدعاء Info API</button>
+        <button onclick="openInfo()">فتح في تاب جديد</button>
+      </div>
+      <div style="margin-top:12px"><pre id="infoResult">— النتائج ستظهر هنا —</pre></div>
+    </section>
+
+    <!-- Check API -->
+    <section class="card">
+      <h2>Check API</h2>
+      <div class="small">استدعي: <code>https://s1x-amin-check.vercel.app/check?uid={uid}</code></div>
+      <label>uid</label>
+      <input id="check_uid" placeholder="مثال: 1001"/>
+      <div class="actions">
+        <button onclick="callCheck()">استدعاء Check API</button>
+        <button onclick="openCheck()">فتح في تاب جديد</button>
+      </div>
+      <div style="margin-top:12px"><pre id="checkResult">— النتائج ستظهر هنا —</pre></div>
+    </section>
+
+    <div class="card small">
+      ملاحظة: إن كان السيرفر لا يسمح بالـ CORS فسيتم فتح الرابط مباشرة في تبويب جديد كحل بديل.
+    </div>
   </main>
 
-  <script>
-    const correctHash = "f4e9b901b5a8b3da63ec2e064d350224ad8c72bbcd2053c9f9d6b7836c401ad8"; // SHA256('letmein')
+  <!-- أصوات قصيرة مضمّنة (يمكن استبدالها بملفات في assets/) -->
+  <audio id="clickSound" src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YUQAAAAA"></audio>
+  <audio id="transSound" src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YUQAAAAA"></audio>
 
-    async function sha256(message) {
-      const msgBuffer = new TextEncoder().encode(message);
-      const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+<script>
+/* مساعدة: تشغيل صوت نقرة */
+function playClick(){ try{ document.getElementById('clickSound').currentTime=0; document.getElementById('clickSound').play(); }catch(e){} }
+function playTrans(){ try{ document.getElementById('transSound').currentTime=0; document.getElementById('transSound').play(); }catch(e){} }
+
+/* بناء رابط الـ Dance */
+function buildDanceUrl(){
+  const code = encodeURIComponent(document.getElementById('team_code').value.trim());
+  const dance = encodeURIComponent(document.getElementById('dance_id').value.trim());
+  const uids = encodeURIComponent(document.getElementById('uids').value.trim());
+  return `https://ctx-team-1-production.up.railway.app/api/dance?code=${code}&dance=${dance}&uids=${uids}&delay=0`;
+}
+
+/* بناء رابط Info */
+function buildInfoUrl(){
+  const uid = encodeURIComponent(document.getElementById('info_uid').value.trim());
+  return `https://ch9ayfa-info-v10-production.up.railway.app/get?uid=${uid}`;
+}
+
+/* بناء رابط Check */
+function buildCheckUrl(){
+  const uid = encodeURIComponent(document.getElementById('check_uid').value.trim());
+  return `https://s1x-amin-check.vercel.app/check?uid=${uid}`;
+}
+
+/* محاولة استخدام fetch ثم fallback لفتح رابط لو فشل (CORS) */
+async function tryFetch(url, targetPre){
+  playClick();
+  targetPre.textContent = "جاري إرسال الطلب...";
+  try {
+    const resp = await fetch(url, { method: 'GET', mode: 'cors' });
+    const txt = await resp.text();
+    targetPre.textContent = `Status: ${resp.status} ${resp.statusText}\n\n${txt}`;
+    playTrans();
+  } catch (err) {
+    targetPre.textContent = `حدث خطأ في الإرسال (ربما CORS). سيتم فتح الرابط في تاب جديد.\n\n${err}`;
+    window.open(url, '_blank');
+  }
+}
+
+/* Handlers */
+function callDance(){ const url = buildDanceUrl(); tryFetch(url, document.getElementById('danceResult')); }
+function openDance(){ playClick(); window.open(buildDanceUrl(), '_blank'); }
+
+function callInfo(){ const url = buildInfoUrl(); tryFetch(url, document.getElementById('infoResult')); }
+function openInfo(){ playClick(); window.open(buildInfoUrl(), '_blank'); }
+
+function callCheck(){ const url = buildCheckUrl(); tryFetch(url, document.getElementById('checkResult')); }
+function openCheck(){ playClick(); window.open(buildCheckUrl(), '_blank'); }
+
+/* small UX: press Enter to trigger appropriate button when in inputs */
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Enter'){
+    const active = document.activeElement;
+    if(active && active.id === 'dance_id' || active && active.id === 'team_code' || active && active.id === 'uids'){
+      callDance();
+    } else if(active && active.id === 'info_uid'){
+      callInfo();
+    } else if(active && active.id === 'check_uid'){
+      callCheck();
     }
-
-    document.getElementById("unlockBtn").addEventListener("click", async () => {
-      const input = document.getElementById("password").value.trim();
-      const hash = await sha256(input);
-      if (hash === correctHash) {
-        const clickSound = new Audio("assets/click.wav");
-        clickSound.play().catch(() => {});
-        document.getElementById("lockScreen").style.opacity = "0";
-        setTimeout(() => {
-          document.getElementById("lockScreen").style.display = "none";
-        }, 500);
-        document.getElementById("content").classList.add("visible");
-      } else {
-        document.getElementById("error").style.display = "block";
-      }
-    });
-  </script>
+  }
+});
+</script>
 </body>
 </html>
